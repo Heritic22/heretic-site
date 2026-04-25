@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const coach = Astro.url.searchParams.get("coach");
+---
+
+<Layout title="Contact">
+
+<!-- HEADER -->
+<section style="padding:80px 20px; text-align:center;">
+  <h1 style="font-size:48px; font-weight:800;">
+    START TRAINING
+  </h1>
+  <p style="color:#aaa; margin-top:10px;">
+    Book your free class today
+  </p>
+</section>
+
+<!-- FORM -->
+<section style="
+  max-width:600px;
+  margin:0 auto;
+  padding:20px;
+">
+
+  <div style="
+    background:#0a0a0a;
+    border:2px solid #d4af37;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 0 20px rgba(212,175,55,0.1);
+  ">
+
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+      <!-- 👇 THIS IS WHERE IT GOES -->
+      {coach && (
+        <p style="
+          margin-bottom:15px;
+          color:#d4af37;
+          font-weight:600;
+        ">
+          You selected: {coach}
+        </p>
+      )}
+
+      <!-- NAME -->
+      <input 
+        type="text" 
+        name="name" 
+        placeholder="Your Name"
+        required
+        style="
+          width:100%;
+          padding:14px;
+          margin-bottom:15px;
+          background:#111;
+          border:1px solid #333;
+          color:white;
+          border-radius:6px;
+        "
+      />
+
+      <!-- EMAIL -->
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="Email"
+        required
+        style="
+          width:100%;
+          padding:14px;
+          margin-bottom:15px;
+          background:#111;
+          border:1px solid #333;
+          color:white;
+          border-radius:6px;
+        "
+      />
+
+      <!-- PHONE -->
+      <input 
+        type="tel" 
+        name="phone" 
+        placeholder="Phone Number"
+        style="
+          width:100%;
+          padding:14px;
+          margin-bottom:15px;
+          background:#111;
+          border:1px solid #333;
+          color:white;
+          border-radius:6px;
+        "
+      />
+
+      <!-- CLASS SELECT -->
+      <select 
+        name="interest"
+        style="
+          width:100%;
+          padding:14px;
+          margin-bottom:20px;
+          background:#111;
+          border:1px solid #333;
+          color:white;
+          border-radius:6px;
+        "
+      >
+        <option value="">Interested In...</option>
+        <option>BJJ (Gi)</option>
+        <option>No-Gi BJJ</option>
+        <option>Muay Thai</option>
+      </select>
+
+      <!-- MESSAGE -->
+      <textarea 
+        name="message"
+        placeholder="Any questions?"
+        rows="4"
+        style="
+          width:100%;
+          padding:14px;
+          margin-bottom:20px;
+          background:#111;
+          border:1px solid #333;
+          color:white;
+          border-radius:6px;
+        "
+      ></textarea>
+
+      <!-- SUBMIT -->
+      <button type="submit" style="
+        width:100%;
+        padding:16px;
+        background:#d4af37;
+        color:black;
+        font-weight:bold;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+      ">
+        Book Free Class
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+</Layout>
