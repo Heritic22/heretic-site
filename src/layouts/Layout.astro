@@ -10,26 +10,37 @@ const { title = 'Heretic' } = Astro.props;
     <title>{title}</title>
   </head>
 
-  <body class="bg-black text-white font-sans">
+  <body style="
+    background:#000;
+    color:white;
+    font-family: system-ui, sans-serif;
+  ">
 
-    <!-- NAVBAR -->
+    <!-- AZTEC BACKGROUND -->
+    <div style="
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at center, rgba(212,175,55,0.08), transparent 70%),
+        url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+      pointer-events:none;
+      z-index:-1;
+    "></div>
+
+    <!-- NAV -->
     <nav style="
       display:flex;
       justify-content:center;
       gap:40px;
       padding:20px;
       border-bottom:1px solid #222;
-      font-size:14px;
-      letter-spacing:1px;
     ">
-
       <a href="/" style="color:#aaa;">Home</a>
       <a href="/coaches" style="color:#aaa;">Coaches</a>
       <a href="/schedule" style="color:#aaa;">Schedule</a>
       <a href="/contact" style="color:#aaa;">Contact</a>
+    </nav>
 
-    </nav>  
-        <!-- PAGE CONTENT -->
     <main>
       <slot />
     </main>

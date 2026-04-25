@@ -5,6 +5,8 @@ const schedule = [
   {
     day: "Monday",
     classes: [
+      { time: "10:00 AM", name: "Adult BJJ" },
+      { time: "11:00 AM", name: "Kids BJJ" },
       { time: "7:30 PM", name: "BJJ (Gi)" },
       { time: "8:30 PM", name: "Muay Thai" }
     ]
@@ -12,6 +14,8 @@ const schedule = [
   {
     day: "Tuesday",
     classes: [
+      { time: "10:00 AM", name: "Adult BJJ" },
+      { time: "11:00 AM", name: "Kids BJJ" },
       { time: "7:30 PM", name: "No-Gi BJJ" },
       { time: "8:30 PM", name: "Muay Thai" }
     ]
@@ -19,6 +23,8 @@ const schedule = [
   {
     day: "Wednesday",
     classes: [
+      { time: "10:00 AM", name: "Adult BJJ" },
+      { time: "11:00 AM", name: "Kids BJJ" },
       { time: "7:30 PM", name: "BJJ (Gi)" },
       { time: "8:30 PM", name: "Muay Thai" }
     ]
@@ -26,6 +32,8 @@ const schedule = [
   {
     day: "Thursday",
     classes: [
+      { time: "10:00 AM", name: "Adult BJJ" },
+      { time: "11:00 AM", name: "Kids BJJ" },
       { time: "7:30 PM", name: "No-Gi BJJ" },
       { time: "8:30 PM", name: "Muay Thai" }
     ]
@@ -35,110 +43,78 @@ const schedule = [
 
 <Layout title="Schedule">
 
-<section style="padding: 60px 20px; text-align:center;">
-  <h1 style="font-size:48px; font-weight:800; letter-spacing:2px;">
-    ADULT SCHEDULE
-  </h1>
-  <p style="color:#d4af37; margin-top:10px;">
-    Click a class below
-  </p>
+<section style="padding:60px 20px; text-align:center;">
+  <h1 style="font-size:42px; font-weight:800;">SCHEDULE</h1>
+  <p style="color:#aaa;">Weekly training times</p>
+
+  <div style="
+    width:60px;
+    height:2px;
+    background:#d4af37;
+    margin:20px auto;
+  "></div>
 </section>
 
-<section style="max-width:1000px; margin:0 auto; padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+<section style="
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+">
 
-  {schedule.map(day => (
-    <div style="
-      background:#0a0a0a;
-      border:2px solid #d4af37;
-      border-radius:12px;
-      padding:20px;
-      box-shadow:0 0 20px rgba(212,175,55,0.1);
-    ">
+{schedule.map(day => (
+  <div style="
+    background:#0a0a0a;
+    border:2px solid #d4af37;
+    border-radius:12px;
+    padding:20px;
+    width:300px;
+    box-shadow:0 0 20px rgba(212,175,55,0.1);
+  ">
 
-      <h2 style="
-        color:#d4af37;
-        font-size:20px;
-        margin-bottom:15px;
-        text-transform:uppercase;
+    <h2 style="color:#d4af37; margin-bottom:15px;">
+      {day.day}
+    </h2>
+
+    {day.classes.map(cls => (
+      <div style="
+        margin-bottom:10px;
+        padding:10px;
+        border:1px solid #333;
+        border-radius:6px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
       ">
-        {day.day}
-      </h2>
 
-      {day.classes.map(cls => (
-        <button
-          onclick={`window.selectClass('${cls.name}', this)`}
-          style="
-            width:100%;
-            margin-bottom:12px;
-            padding:14px;
-            border-radius:8px;
-            border:1px solid #333;
-            background:#111;
-            color:white;
-            cursor:pointer;
-            text-align:left;
-            transition:all 0.2s;
-          "
-          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 12px rgba(212,175,55,0.4)';"
-          onmouseout="this.style.transform=''; this.style.boxShadow='';"
-        >
-          <div style="font-size:12px; color:#aaa;">
+        <div>
+          <div style="font-size:12px; color:#888;">
             {cls.time}
           </div>
-          <div style="font-size:18px; font-weight:600;">
+          <div style="font-weight:600;">
             {cls.name}
           </div>
-        </button>
-      ))}
+        </div>
 
-    </div>
-  ))}
+        <div style="
+          width:8px;
+          height:30px;
+          border-radius:4px;
+          background:
+            {cls.name.includes("Muay") ? "#e50914" :
+             cls.name.includes("Kids") ? "#8b5cf6" :
+             "#2563eb"};
+        "></div>
 
-</section>
+      </div>
+    ))}
 
-<section style="max-width:600px; margin:40px auto; padding:20px; text-align:center; border:2px solid #ff0000; border-radius:10px;">
-  <h2 style="color:#ff0000; margin-bottom:10px;">
-    CLASS DETAILS
-  </h2>
-
-  <div id="classDetails">
-    <p style="color:#aaa;">Select a class</p>
   </div>
+))}
+
 </section>
-
-<script is:inline>
-  window.selectClass = function (cls, el) {
-    const details = document.getElementById("classDetails");
-
-    document.querySelectorAll("button").forEach(btn => {
-      btn.style.outline = "none";
-    });
-
-    if (el) {
-      el.style.outline = "2px solid #d4af37";
-    }
-
-    if (cls === "BJJ (Gi)") {
-      details.innerHTML =
-        "<h3 style='font-size:24px;'>BJJ (Gi)</h3>" +
-        "<p>Gi + Belt required</p>" +
-        "<p>Grappling & submissions</p>";
-    }
-
-    if (cls === "No-Gi BJJ") {
-      details.innerHTML =
-        "<h3 style='font-size:24px;'>No-Gi BJJ</h3>" +
-        "<p>Rashguard + Shorts</p>" +
-        "<p>Fast grappling</p>";
-    }
-
-    if (cls === "Muay Thai") {
-      details.innerHTML =
-        "<h3 style='font-size:24px;'>Muay Thai</h3>" +
-        "<p>Training gear</p>" +
-        "<p>Striking & conditioning</p>";
-    }
-  };
-</script>
 
 </Layout>
